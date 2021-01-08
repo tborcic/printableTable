@@ -1,0 +1,2 @@
+python tableClass.py 
+pause

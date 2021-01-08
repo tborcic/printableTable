@@ -1,4 +1,4 @@
-class TableClass:
+class printableTable:
 	def __init__(self):
 		self.style_default()
 		self.table = []
@@ -244,7 +244,7 @@ if __name__ == "__main__":
 	title = 'test'
 
 	
-	newTable = TableClass()
+	newTable = printableTable()
 	newTable.addRow(title) 
 	for row in arr:
 		newTable.addRow(row)
@@ -270,7 +270,7 @@ if __name__ == "__main__":
 	print(newTable.getTable())
 
 	#print('1 title, 10 items')
-	newTable = TableClass()
+	newTable.clear()
 	newTable.addRow('test')
 	newTable.addRow(['t','e','s','t','s','t','e','s','t','s'])
 	print(newTable.getTable())

@@ -121,13 +121,13 @@ class printableTable:
 			arrDif = self.totalWidth - arrLen + maxElements - rowNum
 			
 			if(arrDif > 0):
-				remanining = arrDif
-				while (remanining>0):
+				remaining = arrDif
+				while (remaining>0):
 					for i in range(0,rowNum):
-						if(remanining==0):
+						if(remaining==0):
 							break
 						self.tableWidth[rowNum][i] += 1
-						remanining-=1
+						remaining-=1
 
 	def setTitles(self,arr):
 		self.titles.clear()
@@ -178,15 +178,15 @@ class printableTable:
 		output += edgeChar +'\n'
 		return output
 
-	def getRowFormat(self, item, length, columnSeperator, allignmMent):
-		if (allignmMent == 'middle'):
+	def getRowFormat(self, item, length, columnSeperator, alignment):
+		if (alignment == 'middle'):
 			return ' {:^{}s} {}'.format(item, length, columnSeperator)
-		elif (allignmMent == 'right'):
+		elif (alignment == 'right'):
 			return ' {:>{}s} {}'.format(item, length, columnSeperator)
-		elif (allignmMent == 'left'):
+		elif (alignment == 'left'):
 			return ' {:<{}s} {}'.format(item, length, columnSeperator)
 
-	def getRow(self,arr, seperator, columnSeperator, seperateRow, allignmMent = 'left'):
+	def getRow(self,arr, seperator, columnSeperator, separateRow, alignment = 'left'):
 		output = columnSeperator
 		for column in range(0,len(arr)):
 			if (type(arr[column]) is list):
@@ -196,10 +196,10 @@ class printableTable:
 				columnModified = columnModified[:-2]
 			else:
 				columnModified = str(arr[column])
-			output += self.getRowFormat(columnModified,self.tableWidth[len(arr)][column], columnSeperator, allignmMent)
+			output += self.getRowFormat(columnModified,self.tableWidth[len(arr)][column], columnSeperator, alignment)
 		output = output[:-1]
 		output += columnSeperator +'\n'
-		if(seperateRow):
+		if(separateRow):
 			output += self.getRowSeperator(self.rowSeperatorEdge, seperator, self.columnSeperatorMiddle)
 		return output
 	
@@ -211,12 +211,12 @@ class printableTable:
 		for index,row in enumerate(self.table):
 			if(type(row) is str):
 				row = [row]
-			allignmMent = 'left'
+			alignment = 'left'
 			if (index in self.middleAllign):
-				allignmMent = 'middle'
+				alignment = 'middle'
 			elif (index in self.rightAllign):
-				allignmMent = 'right'
-			output+=self.getRow(row,self.rowSeperator,self.columnSeperator, False ,allignmMent=allignmMent)
+				alignment = 'right'
+			output+=self.getRow(row,self.rowSeperator,self.columnSeperator, False ,alignment=alignment)
 			if(index == 0 and self.drawTitleSeperator):
 				output += self.getRowSeperator(self.rowSeperatorEdge, self.rowSeperator, self.rowSeperator,seperationLen=totalWidth)
 			elif(self.drawRowSeperators):
@@ -227,9 +227,9 @@ class printableTable:
 		
 		return output
 
-	def getTableTitleFormat(self, title, allignmMent='middle'):
+	def getTableTitleFormat(self, title, alignment='middle'):
 		self.setTableWidth()
-		return self.getRowFormat(str(title), self.getTotalWidth()+3,'',allignmMent=allignmMent)
+		return self.getRowFormat(str(title), self.getTotalWidth()+3,'',alignment=alignment)
 
 if __name__ == "__main__":
 	arr = [ [1,	2,	3,	4 ],
